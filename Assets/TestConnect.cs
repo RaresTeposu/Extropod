@@ -9,6 +9,7 @@ public class TestConnect : MonoBehaviourPunCallbacks
     private void Start()
     {
         print("...");
+        PhotonNetwork.AutomaticallySyncScene = true;
         PhotonNetwork.NickName = MasterManager.GameSettigns.NickName;
         PhotonNetwork.GameVersion = MasterManager.GameSettigns.GameVersion;
         PhotonNetwork.ConnectUsingSettings();
@@ -19,8 +20,11 @@ public class TestConnect : MonoBehaviourPunCallbacks
     {
         print("Connected");
         print(PhotonNetwork.LocalPlayer.NickName);
-
-        PhotonNetwork.JoinLobby();
+        if(!PhotonNetwork.InLobby)
+        {
+            PhotonNetwork.JoinLobby();
+        }
+           
     }
 
     public override void OnDisconnected(DisconnectCause cause)
